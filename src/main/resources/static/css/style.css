@@ -1,3 +1,19 @@
 body{
     background: #e2e2e2;
 }
+.bg-primary {
+    background: #009688 !important;
+}
+
+.banner {
+    color: white;
+    width: 100%;
+    height: 93vh;
+    background: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .6)),url(../img/1657858.webp);
+    background-size: cover;
+}
+
+.my-card {
+    padding: 20px;
+    background: #FFFFFF;
+}

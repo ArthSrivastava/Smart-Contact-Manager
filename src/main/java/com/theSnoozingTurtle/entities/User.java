@@ -94,4 +94,19 @@ public class User {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", role='" + role + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", about='" + about + '\'' +
+                ", enabled=" + enabled +
+                ", contacts=" + contacts +
+                '}';
+    }
 }
