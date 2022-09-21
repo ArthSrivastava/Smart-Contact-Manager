@@ -1,6 +1,10 @@
 package com.theSnoozingTurtle.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,16 +14,21 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @NotBlank(message = "Name cannot be blank!")
+    @Size(min = 3, max = 50, message = "Name size should be between 3 and 50 characters")
     private String name;
     private String role;
 
     @Column(unique = true)
+    @Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "Invalid email!")
     private String email;
 
     private String password;
     private String imageUrl;
 
     @Column(length = 500)
+    @Size(max = 500, message = "Length cannot exceed 500 characters!")
     private String about;
 
     private boolean enabled;
