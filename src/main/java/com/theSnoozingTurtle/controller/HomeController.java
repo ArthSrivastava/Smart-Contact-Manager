@@ -4,13 +4,11 @@ import com.theSnoozingTurtle.dao.UserRepository;
 import com.theSnoozingTurtle.entities.User;
 import com.theSnoozingTurtle.helper.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -18,6 +16,8 @@ import javax.validation.Valid;
 @Controller
 public class HomeController {
 
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
     UserRepository userRepository;
 
     public HomeController(@Autowired UserRepository userRepository) {
@@ -54,6 +54,7 @@ public class HomeController {
 
         try {
             if (!agreement) {
+                model.addAttribute("user", user);
                 throw new RuntimeException("You must accept the terms and conditions!");
             }
 
@@ -65,6 +66,7 @@ public class HomeController {
             user.setRole("ROLE_USER");
             user.setEnabled(true);
             user.setImageUrl("Default.png");
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             model.addAttribute("user", new User());
             session.setAttribute("message", new Message("User created successfully!", "alert-success"));
@@ -75,5 +77,11 @@ public class HomeController {
             session.setAttribute("message", new Message("Something went wrong: " + e.getMessage(), "alert-danger"));
         }
         return "signup";
+    }
+
+    @GetMapping("/signin")
+    public String login(Model model) {
+        model.addAttribute("title", "Login Page");
+        return "login";
     }
 }
