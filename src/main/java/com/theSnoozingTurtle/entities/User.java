@@ -104,6 +104,14 @@ public class User {
         this.enabled = enabled;
     }
 
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -115,7 +123,6 @@ public class User {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", about='" + about + '\'' +
                 ", enabled=" + enabled +
-                ", contacts=" + contacts +
                 '}';
     }
 }
