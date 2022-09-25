@@ -89,3 +89,21 @@ body{
 .content #toggleBtn{
     cursor: pointer;
 }
+
+.profile_picture {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid powderblue;
+}
+
+.contact-info-link {
+    text-decoration: none;
+    color: black;
+}
+
+.par-contact-back {
+    margin-left: 30px;
+    padding-top: 10px;
+}
