@@ -6,8 +6,25 @@
 </head>
 <body>
 <section>
-    <h1>This is the user's private dashboard!</h1>
+    <div class="container">
+        <div class="card">
+            <div class="card-body my-5">
+                <div class="container text-center">
+                    <img style="width: 200px; height: 200px" class="profile_picture" th:src="@{/img/contact_logo.png}"
+                         alt="profile photo">
+                </div>
 
+                <h1 class="text-center mt-3 text-secondary fst-italic font-weight-light">
+                    Start adding your contacts on cloud...
+                </h1>
+
+                <div class="container text-center">
+                    <a th:href="@{/user/add-contacts}" class="btn btn-primary mt-4 text-uppercase">Add New Contacts</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </section>
 </body>
 </html>
