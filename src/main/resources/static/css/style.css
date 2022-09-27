@@ -107,3 +107,18 @@ body{
     margin-left: 30px;
     padding-top: 10px;
 }
+
+        /*search css*/
+
+.search-container {
+    position: relative;
+}
+
+.search-result {
+    position: absolute;
+    width: 100%;
+    background: white;
+    padding: 10px;
+    border: 1px solid gray;
+    display: none;
+}
