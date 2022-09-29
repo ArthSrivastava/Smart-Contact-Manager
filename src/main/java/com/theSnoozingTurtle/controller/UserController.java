@@ -10,6 +10,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,9 @@ public class UserController {
 
     @Autowired
     ContactRepository contactRepository;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     //This method will run always
     @ModelAttribute
@@ -196,4 +200,35 @@ public class UserController {
         model.addAttribute("title", "Profile Page");
         return "normal/profile";
     }
+
+    //handler for settings
+    @GetMapping("/settings")
+    public String settings(Model model) {
+        model.addAttribute("title", "User Settings");
+        return "normal/settings";
+    }
+
+    //change password module
+    @PostMapping("/change-password")
+    public String changePassword(@RequestParam("oldPassword") String oldPassword,
+                                 @RequestParam("newPassword") String newPassword,
+                                 Principal principal, HttpSession session) {
+//        System.out.println(oldPassword);
+//        System.out.println(newPassword);
+        String username = principal.getName();
+        User user = this.userRepository.getUserByUserName(username);
+
+        if (bCryptPasswordEncoder.matches(oldPassword, user.getPassword())) {
+            //change the password
+            user.setPassword(this.bCryptPasswordEncoder.encode(newPassword));
+            this.userRepository.save(user);
+            session.setAttribute("message", new Message("Password changed successfully", "success"));
+        } else {
+//            error....
+            session.setAttribute("message", new Message("Please enter correct old password", "danger"));
+            return "redirect:/user/settings";
+        }
+        return "redirect:/user/index";
+    }
+
 }

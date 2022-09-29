@@ -21,7 +21,7 @@
                 <thead class="table-dark">
                 <tr>
                     <th scope="col">#ID</th>
-                    <th scope="col">Name</th>
+                    <th scope="col">Name (NickName)</th>
                     <th scope="col">Email</th>
                     <th scope="col">Phone No.</th>
                     <th scope="col">Action</th>
@@ -33,7 +33,7 @@
                     <td>
                         <img class="profile_picture" th:src="@{'/img/' + ${e.image}}" alt="profile photo">
                         <a th:href="@{'/user/contact/' + ${e.cId}}" class="contact-info-link">
-                            <span th:text="${e.name} + '(' + ${e.nickName} + ')'"></span>
+                            <span th:text="${e.name} + ' (' + ${e.nickName} + ')'"></span>
                         </a></td>
                     <td th:text="${e.email}"></td>
                     <td th:text="${e.phoneNo}"></td>
