@@ -172,16 +172,15 @@ public class UserController {
                 System.out.println("IN this!");
                 contact.setImage(oldContactDetails.getImage());
             } else {
+                contact.setImage(file.getOriginalFilename());
                 File file1 = new ClassPathResource("static/img").getFile();
-
-                //deleting the old contact image
-                Path pathToDeleteOld = Paths.get(file1.getAbsolutePath() + File.separator + oldContactDetails.getImage());
-                Files.delete(pathToDeleteOld);
+//                deleting the old contact image
+                    Path pathToDeleteOld = Paths.get(file1.getAbsolutePath() + File.separator + oldContactDetails.getImage());
+                    Files.delete(pathToDeleteOld);
 
                 //saving the new contact image
                 Path path = Paths.get(file1.getAbsolutePath() + File.separator + file.getOriginalFilename());
                 Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-                contact.setImage(file.getOriginalFilename());
             }
             User user = userRepository.getUserByUserName(principal.getName());
             contact.setUser(user);
